@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
+import AnimatedJackpot from "@/components/AnimatedJackpot";
 
 const Index = () => {
   const popularSlots = [
@@ -130,16 +131,22 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-gold mb-2">5,000,000₽</div>
-              <div className="text-white/80">Максимальный джекпот</div>
+            <div className="text-center jackpot-container">
+              <div className="glow-gold-intense rounded-lg p-4 bg-casino-dark/50 backdrop-blur-sm">
+                <AnimatedJackpot 
+                  targetAmount={5000000}
+                  size="lg"
+                  className="text-glow-gold mb-2"
+                />
+                <div className="text-white/80">Максимальный джекпот</div>
+              </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gold mb-2">500+</div>
+              <div className="text-3xl font-bold text-gold mb-2 text-glow-gold animate-pulse">500+</div>
               <div className="text-white/80">Игр в каталоге</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gold mb-2">24/7</div>
+              <div className="text-3xl font-bold text-gold mb-2 text-glow-gold animate-bounce">24/7</div>
               <div className="text-white/80">Поддержка игроков</div>
             </div>
           </div>
@@ -183,7 +190,7 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {popularSlots.map((slot) => (
-              <Card key={slot.id} className="bg-casino-dark border-gold/20 hover:border-gold/50 transition-all duration-300 group cursor-pointer overflow-hidden">
+              <Card key={slot.id} className="bg-casino-dark border-gold/20 hover:border-gold/50 hover:glow-gold transition-all duration-300 group cursor-pointer overflow-hidden shimmer-bg">
                 <div className="relative">
                   <img 
                     src={slot.image} 
@@ -192,14 +199,14 @@ const Index = () => {
                   />
                   <div className="absolute top-3 right-3 flex gap-2">
                     {slot.isHot && (
-                      <Badge className="bg-red-600 text-white">
-                        <Icon name="Flame" className="w-3 h-3 mr-1" />
+                      <Badge className="bg-red-600 text-white animate-pulse glow-gold">
+                        <Icon name="Flame" className="w-3 h-3 mr-1 animate-bounce" />
                         HOT
                       </Badge>
                     )}
                     {slot.isNew && (
-                      <Badge className="bg-green-600 text-white">
-                        <Icon name="Sparkles" className="w-3 h-3 mr-1" />
+                      <Badge className="bg-green-600 text-white animate-bounce glow-gold">
+                        <Icon name="Sparkles" className="w-3 h-3 mr-1 animate-spin" />
                         NEW
                       </Badge>
                     )}
@@ -216,7 +223,11 @@ const Index = () => {
                   
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-white/80">Джекпот:</span>
-                    <span className="text-gold font-bold text-lg">{slot.jackpot}</span>
+                    <AnimatedJackpot 
+                      targetAmount={parseInt(slot.jackpot.replace(/[^\d]/g, ''))}
+                      size="sm"
+                      className="text-glow-gold"
+                    />
                   </div>
                   
                   <Button className="w-full bg-gold text-black hover:bg-gold-dark font-semibold">
